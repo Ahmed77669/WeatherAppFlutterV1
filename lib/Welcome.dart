@@ -1,3 +1,5 @@
+import 'package:app1/login.dart';
+import 'package:app1/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -23,6 +25,23 @@ class MyApp extends StatefulWidget {
     // TODO: implement createState
     throw UnimplementedError();
   }
+}
+
+class BottomToTopPageRoute extends PageRouteBuilder {
+  final Widget page;
+
+  BottomToTopPageRoute({required this.page})
+      : super(
+    pageBuilder: (context, animation, secondaryAnimation) => page,
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      const begin = Offset(0.0, 1.0);
+      const end = Offset.zero;
+      const curve = Curves.easeInOut;
+      var tween = Tween(begin: begin, end: end);
+      var offsetAnimation = animation.drive(tween.chain(CurveTween(curve: curve)));
+      return SlideTransition(position: offsetAnimation, child: child);
+    },
+  );
 }
 
 class welcome extends StatefulWidget {
@@ -102,6 +121,7 @@ class _NavigationExampleState extends State<welcome> {
           height: 55,
           child:ElevatedButton(
             onPressed: () {
+              Navigator.push(context, BottomToTopPageRoute(page: signup()));
             },
 
             style: ElevatedButton.styleFrom(
@@ -126,6 +146,7 @@ class _NavigationExampleState extends State<welcome> {
             height: 55,
             child:ElevatedButton(
               onPressed: () {
+                Navigator.push(context, BottomToTopPageRoute(page: login()));
               },
 
               style: ElevatedButton.styleFrom(
@@ -139,8 +160,8 @@ class _NavigationExampleState extends State<welcome> {
                 ),
               ),
               child:
-              Row(children: [
-                Image(image: AssetImage('assets/google_icon.png')),
+
+
               Text(
                 'Log in',
                 style: GoogleFonts.inter(
@@ -148,7 +169,7 @@ class _NavigationExampleState extends State<welcome> {
                   color: Color.fromARGB(255, 2, 120, 205),
                 ),
               ),
-              ],)
+
             ),
           ),
             ],
