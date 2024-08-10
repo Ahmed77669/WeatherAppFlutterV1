@@ -1,8 +1,10 @@
+import 'package:app1/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:weather/weather.dart';
 import 'package:app1/consts.dart';
 import 'globals.dart';
+import 'Welcome.dart';
 
 void main() => runApp(MyApp());
 
@@ -10,12 +12,12 @@ class MyApp extends StatelessWidget {
   MyApp({super.key});
 
   final TextEditingController searchController = TextEditingController();
-
+  // NavigationExample(searchController: searchController)
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(useMaterial3: true),
-      home: NavigationExample(searchController: searchController),
+      home: signup(),
       debugShowCheckedModeBanner: false,
     );
   }
